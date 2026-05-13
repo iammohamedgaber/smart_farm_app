@@ -67,7 +67,6 @@ class ApiService {
     }
   }
 
-  // DELETE method (paste inside your ApiService)
   Future<bool> delete({required String endpoint, String? token}) async {
     final url = Uri.parse("$baseUrl$endpoint");
 
@@ -84,7 +83,6 @@ class ApiService {
     print("Status Code: ${response.statusCode}");
     print("Response Body: ${response.body}");
 
-    // consider 200, 201, 204 as success
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 204) {

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_farm_app/core/utils/app_theme.dart';
 import 'package:smart_farm_app/data/models/zone_model.dart';
 import 'package:smart_farm_app/presentation/zones/cubit/zones_cubit.dart';
 import 'package:smart_farm_app/presentation/zones/view/zone_card.dart';
 
-
 import 'zone_details_page.dart';
 import 'select_crop_page.dart';
-
 
 class ZonesPage extends StatefulWidget {
   const ZonesPage({super.key});
@@ -22,7 +19,6 @@ class _ZonesPageState extends State<ZonesPage> {
   void initState() {
     super.initState();
 
-    /// تحميل الزونات أول ما الصفحة تفتح
     Future.microtask(() {
       if (mounted) {
         context.read<ZonesCubit>().loadZones();
@@ -32,27 +28,22 @@ class _ZonesPageState extends State<ZonesPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ جلب الثيم الديناميكي (بيشتغل مع Light & Dark تلقائيًا)
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
-      // ✅ خلفية ديناميكية من الثيم
-      backgroundColor: colorScheme.surface,
+      // خلفية ثابتة
+      backgroundColor: Colors.white,
 
-      // ✅ AppBar منسّق بألوان من الثيم
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Farm Zones",
-          style: textTheme.titleLarge?.copyWith(
-            color: colorScheme.onPrimary,
+          style: TextStyle(
+            color: Colors.white,
             fontWeight: FontWeight.w700,
             fontSize: 20,
           ),
         ),
         centerTitle: true,
-        backgroundColor: AppThemes.primaryColor,
-        foregroundColor: colorScheme.onPrimary,
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
         elevation: 0,
         scrolledUnderElevation: 2,
         shape: const RoundedRectangleBorder(
@@ -62,27 +53,25 @@ class _ZonesPageState extends State<ZonesPage> {
 
       body: BlocBuilder<ZonesCubit, List<ZoneModel>>(
         builder: (context, zones) {
-          /// لو لسه مفيش بيانات
           if (zones.isEmpty) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // ✅ Loading Indicator بألوان من الثيم
                   SizedBox(
                     width: 40,
                     height: 40,
                     child: CircularProgressIndicator(
-                      color: AppThemes.primaryColor,
+                      color: Colors.green,
                       strokeWidth: 3,
-                      backgroundColor: colorScheme.surfaceVariant,
+                      backgroundColor: Colors.black12,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   Text(
                     "Loading zones...",
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurface.withOpacity(0.7),
+                    style: TextStyle(
+                      color: Colors.black54,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -106,7 +95,6 @@ class _ZonesPageState extends State<ZonesPage> {
               return ZoneCard(
                 zone: zone,
                 onTap: () async {
-                  /// لو الزون مفيهاش محصول
                   if (zone.cropId == 0) {
                     final result = await Navigator.push(
                       context,
@@ -115,13 +103,10 @@ class _ZonesPageState extends State<ZonesPage> {
                       ),
                     );
 
-                    /// بعد ما المستخدم يزرع crop
                     if (result == true && mounted) {
                       context.read<ZonesCubit>().loadZones();
                     }
-                  }
-                  /// لو فيها محصول
-                  else {
+                  } else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
