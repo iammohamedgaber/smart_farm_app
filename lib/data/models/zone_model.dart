@@ -1,14 +1,21 @@
 class ZoneModel {
   final int zoneId;
   final int cropId;
+  final String? cropName;
   final String? lastIrrigation;
 
-  ZoneModel({required this.zoneId, required this.cropId, this.lastIrrigation});
+  ZoneModel({
+    required this.zoneId,
+    required this.cropId,
+    this.cropName,
+    this.lastIrrigation,
+  });
 
   factory ZoneModel.fromJson(Map<String, dynamic> json) {
     return ZoneModel(
       zoneId: (json["zoneId"] ?? 0) as int,
       cropId: (json["cropId"] ?? 0) as int,
+      cropName: json["cropName"]?.toString(),
       lastIrrigation: json["lastIrrigation"]?.toString(),
     );
   }
@@ -17,29 +24,31 @@ class ZoneModel {
     return {
       "zoneId": zoneId,
       "cropId": cropId,
+      "cropName": cropName,
       "lastIrrigation": lastIrrigation,
     };
   }
 }
 
 class CropModel {
-  final int id;
-  final String name;
+  final int cropId;
+  final String cropName;
 
-  CropModel({required this.id, required this.name});
+  CropModel({required this.cropId, required this.cropName});
 
   factory CropModel.fromJson(Map<String, dynamic> json) {
     return CropModel(
-      id: (json["cropId"] ?? json["id"] ?? 0) as int,
-      name: (json["cropName"] ?? json["name"] ?? '') as String,
+      cropId: (json["cropId"] ?? 0) as int,
+      cropName: (json["cropName"] ?? "").toString(),
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"cropId": id, "cropName": name};
+    return {"cropId": cropId, "cropName": cropName};
   }
 }
 
+// ✅ Requests خاصة بالـ Zone
 class PlantCropRequest {
   final int cropId;
   final int userId;

@@ -39,7 +39,6 @@ class OperationsCubit extends Cubit<OperationsState> {
     }
   }
 
-  
   Future<void> loadByType(int? type) async {
     emit(OperationsLoading());
     try {
