@@ -1,65 +1,6 @@
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:smart_farm_app/data/models/zone_model.dart';
-// import 'package:smart_farm_app/data/sources/robot_api.dart';
-// import 'package:smart_farm_app/presentation/zones/cubit/zone_details_cubit_state.dart';
-
-// class ZoneDetailsCubit extends Cubit<ZoneDetailsState> {
-//   final RobotApi robotApi;
-
-//   ZoneDetailsCubit(this.robotApi) : super(ZoneInitial());
-
-//   Future<void> irrigateZone(int zoneId, int duration) async {
-//     emit(ZoneLoading());
-//     try {
-//       final ok = await robotApi.irrigate(
-//         IrrigateRequest(userId: 1, zoneId: zoneId, duration: duration),
-//       );
-//       if (ok) {
-//         emit(ZoneSuccess("تم بدء الري"));
-//       } else {
-//         emit(ZoneFailure("فشل بدء الري"));
-//       }
-//     } catch (_) {
-//       emit(ZoneFailure("خطأ أثناء الري"));
-//     }
-//   }
-
-//   Future<void> removeWeed(int zoneId) async {
-//     emit(ZoneLoading());
-//     try {
-//       final ok = await robotApi.removeWeed(
-//         RemoveHarmfulPlantRequest(
-//           plantId: 1,
-//           x: 0,
-//           y: 0,
-//           userId: 1,
-//           zoneId: zoneId,
-//         ),
-//       );
-//       if (ok) {
-//         emit(ZoneSuccess("تمت إزالة الأعشاب"));
-//       } else {
-//         emit(ZoneFailure("فشل في إزالة الأعشاب"));
-//       }
-//     } catch (_) {
-//       emit(ZoneFailure("خطأ أثناء إزالة الأعشاب"));
-//     }
-//   }
-
-//   Future<void> plantCrop(int zoneId, int cropId) async {
-//     emit(ZoneLoading());
-//     try {
-//       // هنا هتستدعي الـ API بتاع زرع المحصول
-//       emit(ZoneSuccess("تم زرع المحصول بنجاح"));
-//     } catch (_) {
-//       emit(ZoneFailure("فشل زرع المحصول"));
-//     }
-//   }
-// }
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_farm_app/data/models/RobotSt_model.dart';
 import 'package:smart_farm_app/data/models/zone_model.dart';
-
 import 'package:smart_farm_app/data/sources/robot_api.dart';
 import 'package:smart_farm_app/presentation/zones/cubit/zone_details_cubit_state.dart';
 
@@ -68,7 +9,6 @@ class ZoneDetailsCubit extends Cubit<ZoneDetailsState> {
 
   ZoneDetailsCubit(this.robotApi) : super(ZoneInitial());
 
-  // ✅ ري منطقة
   Future<void> irrigateZone(int zoneId, int duration) async {
     emit(ZoneLoading());
     try {
@@ -76,16 +16,15 @@ class ZoneDetailsCubit extends Cubit<ZoneDetailsState> {
         IrrigateRequest(userId: 1, zoneId: zoneId, duration: duration),
       );
       if (ok) {
-        emit(ZoneSuccess("تم بدء الري"));
+        emit(ZoneSuccess('Irrigation has started.'));
       } else {
-        emit(ZoneFailure("فشل بدء الري"));
+        emit(ZoneFailure("Irrigation start failure"));
       }
     } catch (_) {
-      emit(ZoneFailure("خطأ أثناء الري"));
+      emit(ZoneFailure("Error during irrigation"));
     }
   }
 
-  // ✅ إزالة نبات ضار
   Future<void> removeWeed(int zoneId) async {
     emit(ZoneLoading());
     try {
@@ -99,33 +38,31 @@ class ZoneDetailsCubit extends Cubit<ZoneDetailsState> {
         ),
       );
       if (ok) {
-        emit(ZoneSuccess("تمت إزالة الأعشاب"));
+        emit(ZoneSuccess('The weeds have been removed.'));
       } else {
-        emit(ZoneFailure("فشل في إزالة الأعشاب"));
+        emit(ZoneFailure('"Failed to remove the weeds"'));
       }
     } catch (_) {
-      emit(ZoneFailure("خطأ أثناء إزالة الأعشاب"));
+      emit(ZoneFailure("Error while removing weeds"));
     }
   }
 
-  // ✅ زرع محصول
-  Future<void> plantCrop(int zoneId, int cropId) async {
+  Future<void> plantCrop(int zoneId, int cropId, {String? cropName}) async {
     emit(ZoneLoading());
     try {
       final ok = await robotApi.plantCrop(
         PlantCropRequest(cropId: cropId, userId: 1, zoneId: zoneId),
       );
       if (ok) {
-        emit(ZoneSuccess("تم زرع المحصول بنجاح"));
+        emit(ZoneSuccess("Crop planted successfully", cropName: cropName));
       } else {
-        emit(ZoneFailure("فشل زرع المحصول"));
+        emit(ZoneFailure("Crop planting failed"));
       }
     } catch (_) {
-      emit(ZoneFailure("خطأ أثناء زرع المحصول"));
+      emit(ZoneFailure("Error while planting crop"));
     }
   }
 
-  // ✅ حصاد محصول
   Future<void> harvest(int zoneId) async {
     emit(ZoneLoading());
     try {
@@ -133,51 +70,42 @@ class ZoneDetailsCubit extends Cubit<ZoneDetailsState> {
         HarvestRequest(userId: 1, zoneId: zoneId),
       );
       if (ok) {
-        emit(ZoneSuccess("تم الحصاد بنجاح"));
+        emit(ZoneSuccess("Harvest completed successfully"));
       } else {
-        emit(ZoneFailure("فشل الحصاد"));
+        emit(ZoneFailure("Harvest failed"));
       }
     } catch (_) {
-      emit(ZoneFailure("خطأ أثناء الحصاد"));
+      emit(ZoneFailure("Error while harvesting"));
     }
   }
 
-  // ✅ مسح المنطقة
   Future<void> scan(int zoneId) async {
     emit(ZoneLoading());
     try {
-      final ok = await robotApi.scan(
-        ScanRequest(userId: 1, zoneId: zoneId),
-      );
+      final ok = await robotApi.scan(ScanRequest(userId: 1, zoneId: zoneId));
       if (ok) {
-        emit(ZoneSuccess("تم المسح بنجاح"));
+        emit(ZoneSuccess("Scan completed successfully"));
       } else {
-        emit(ZoneFailure("فشل المسح"));
+        emit(ZoneFailure("Scan failed"));
       }
     } catch (_) {
-      emit(ZoneFailure("خطأ أثناء المسح"));
+      emit(ZoneFailure("Error while scanning"));
     }
   }
 
-  // ✅ تأكيد اكتشاف نبات
   Future<void> plantFound(int zoneId, int plantId, double x, double y) async {
     emit(ZoneLoading());
     try {
       final ok = await robotApi.plantFound(
-        PlantFoundRequest(
-          plantId: plantId,
-          x: x,
-          y: y,
-          zoneId: zoneId,
-        ),
+        PlantFoundRequest(plantId: plantId, x: x, y: y, zoneId: zoneId),
       );
       if (ok) {
-        emit(ZoneSuccess("تم تسجيل النبات المكتشف"));
+        emit(ZoneSuccess("Plant discovery recorded"));
       } else {
-        emit(ZoneFailure("فشل تسجيل النبات المكتشف"));
+        emit(ZoneFailure("Failed to record plant discovery"));
       }
     } catch (_) {
-      emit(ZoneFailure("خطأ أثناء تسجيل النبات المكتشف"));
+      emit(ZoneFailure("Error while recording plant discovery"));
     }
   }
 }

@@ -11,10 +11,12 @@ class ZoneLoading extends ZoneDetailsState {}
 
 class ZoneSuccess extends ZoneDetailsState {
   final String message;
-  ZoneSuccess(this.message);
+  final String? cropName; 
+
+  ZoneSuccess(this.message, {this.cropName});
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, cropName];
 }
 
 class ZoneFailure extends ZoneDetailsState {

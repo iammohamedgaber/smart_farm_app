@@ -3,7 +3,6 @@ import 'package:smart_farm_app/core/utils/user_storage.dart';
 import 'package:smart_farm_app/presentation/auth/view/login_page.dart';
 import 'package:smart_farm_app/presentation/main_layout.dart';
 
-
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -95,7 +94,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final base = Colors.green; // ✅ الخلفية الأساسية أخضر
+    final base = Colors.green; 
     final bg = theme.scaffoldBackgroundColor;
 
     return Scaffold(

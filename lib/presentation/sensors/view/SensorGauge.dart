@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:smart_farm_app/animations/app_colors.dart';
 
 class SensorGauge extends StatelessWidget {
   final double value;
@@ -9,6 +10,7 @@ class SensorGauge extends StatelessWidget {
   final Color color;
   final IconData icon;
   final bool compact;
+  final bool isLoading;
 
   const SensorGauge({
     Key? key,
@@ -19,6 +21,7 @@ class SensorGauge extends StatelessWidget {
     required this.color,
     required this.icon,
     this.compact = true,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -33,93 +36,148 @@ class SensorGauge extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.0, end: pct),
-          duration: const Duration(milliseconds: 1000),
-          curve: Curves.easeOut,
-          builder: (context, animPct, _) {
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                // الخلفية (Arc رمادي فاتح)
-                SizedBox(
-                  width: size,
-                  height: size,
-                  child: CustomPaint(
-                    painter: _ArcPainter(
-                      progress: 1.0,
-                      color: Colors.white.withOpacity(0.1),
-                      strokeWidth: strokeWidth,
-                    ),
-                  ),
-                ),
-
-                // الجزء الملون (Arc متدرج)
-                SizedBox(
-                  width: size,
-                  height: size,
-                  child: CustomPaint(
-                    painter: _ArcPainter(
-                      progress: animPct,
-                      color: color,
-                      strokeWidth: strokeWidth,
-                      withGradient: true,
-                      gradientColors: [
-                        color.withOpacity(0.5),
-                        color,
-                      ],
-                    ),
-                  ),
-                ),
-
-                // المحتوى في النص
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(icon, color: color, size: iconSize),
-                    const SizedBox(height: 4),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: (animPct * maxValue).toStringAsFixed(1),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: valueFontSize,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: unit,
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.6),
-                              fontSize: unitFontSize,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
+        isLoading
+            ? _buildLoadingState(size, strokeWidth, iconSize)
+            : _buildGauge(
+                size: size,
+                strokeWidth: strokeWidth,
+                valueFontSize: valueFontSize,
+                unitFontSize: unitFontSize,
+                iconSize: iconSize,
+                pct: pct,
+              ),
         const SizedBox(height: 8),
         Text(
           label,
           style: TextStyle(
             fontSize: compact ? 12.0 : 14.0,
             fontWeight: FontWeight.w500,
-            color: Colors.white.withOpacity(0.7),
+            color: AppColors.white.withOpacity(0.7),
           ),
         ),
       ],
     );
   }
+
+  Widget _buildGauge({
+    required double size,
+    required double strokeWidth,
+    required double valueFontSize,
+    required double unitFontSize,
+    required double iconSize,
+    required double pct,
+  }) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.0, end: pct),
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.easeOut,
+      builder: (context, animPct, _) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              width: size,
+              height: size,
+              child: CustomPaint(
+                painter: _ArcPainter(
+                  progress: 1.0,
+                  color: AppColors.white.withOpacity(0.1),
+                  strokeWidth: strokeWidth,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              width: size,
+              height: size,
+              child: CustomPaint(
+                painter: _ArcPainter(
+                  progress: animPct,
+                  color: color,
+                  strokeWidth: strokeWidth,
+                  withGradient: true,
+                  gradientColors: [color.withOpacity(0.5), color],
+                ),
+              ),
+            ),
+
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, color: color, size: iconSize),
+                const SizedBox(height: 4),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: (animPct * maxValue).toStringAsFixed(1),
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: valueFontSize,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: unit,
+                        style: TextStyle(
+                          color: AppColors.white.withOpacity(0.6),
+                          fontSize: unitFontSize,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingState(double size, double strokeWidth, double iconSize) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CustomPaint(
+            painter: _ArcPainter(
+              progress: 1.0,
+              color: AppColors.white.withOpacity(0.05),
+              strokeWidth: strokeWidth,
+            ),
+          ),
+          SizedBox(
+            width: size * 0.85,
+            height: size * 0.85,
+            child: CircularProgressIndicator(
+              color: color,
+              strokeWidth: strokeWidth * 0.6,
+            ),
+          ),
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.8, end: 1.0),
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+            builder: (context, scale, _) {
+              return Transform.scale(
+                scale: scale,
+                child: Icon(
+                  icon,
+                  color: color.withOpacity(0.6),
+                  size: iconSize,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-// ── Arc Painter ─────────────────────────────────────────
 class _ArcPainter extends CustomPainter {
   final double progress;
   final Color color;
@@ -127,7 +185,7 @@ class _ArcPainter extends CustomPainter {
   final bool withGradient;
   final List<Color>? gradientColors;
 
-  _ArcPainter({
+  const _ArcPainter({
     required this.progress,
     required this.color,
     required this.strokeWidth,
@@ -167,6 +225,6 @@ class _ArcPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_ArcPainter old) =>
+  bool shouldRepaint(covariant _ArcPainter old) =>
       old.progress != progress || old.color != color;
 }

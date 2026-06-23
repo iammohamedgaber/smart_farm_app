@@ -28,7 +28,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       final mail = await UserStorage.getEmail();
       emit(ProfileLoaded(name ?? '', mail ?? ''));
     } catch (e) {
-      emit(ProfileError('فشل تحميل بيانات المستخدم'));
+      emit(ProfileError('Failed to load user data'));
     }
   }
 

@@ -13,8 +13,8 @@ class ZoneModel {
 
   factory ZoneModel.fromJson(Map<String, dynamic> json) {
     return ZoneModel(
-      zoneId: (json["zoneId"] ?? 0) as int,
-      cropId: (json["cropId"] ?? 0) as int,
+      zoneId: _toInt(json["zoneId"]),
+      cropId: _toInt(json["cropId"]),
       cropName: json["cropName"]?.toString(),
       lastIrrigation: json["lastIrrigation"]?.toString(),
     );
@@ -27,6 +27,13 @@ class ZoneModel {
       "cropName": cropName,
       "lastIrrigation": lastIrrigation,
     };
+  }
+
+ 
+  static int _toInt(dynamic value) {
+    if (value == null) return 0;
+    if (value is int) return value;
+    return int.tryParse(value.toString()) ?? 0;
   }
 }
 
@@ -48,7 +55,7 @@ class CropModel {
   }
 }
 
-// ✅ Requests خاصة بالـ Zone
+
 class PlantCropRequest {
   final int cropId;
   final int userId;

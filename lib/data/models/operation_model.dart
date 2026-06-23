@@ -1,12 +1,12 @@
 class OperationModel {
   final int operationId;
-  final int operationType; // ✅ النوع (0 زراعة، 1 حصاد، 2 إزالة، 3 ري)
+  final int operationType; 
   final int userId;
   final int zoneId;
   final int? cropId;
   final String? cropName;
   final int? harmfulPlantId;
-  final int? duration; // ✅ مدة العملية (تستخدم في الري غالبًا)
+  final int? duration; 
   final DateTime createdAt;
 
   OperationModel({
@@ -22,7 +22,7 @@ class OperationModel {
   });
 
   factory OperationModel.fromJson(Map<String, dynamic> json) {
-    // ✅ نحول النص اللي جاي من الـ API لرقم
+  
     int type = 0;
     switch (json['operationTypeName']) {
       case 'Planting':
@@ -43,8 +43,8 @@ class OperationModel {
 
     return OperationModel(
       operationId: json['operationId'] ?? 0,
-      operationType: type, // ✅ النوع مظبوط دلوقتي
-      userId: 0, // مش محتاجينه في الـ UI
+      operationType: type, 
+      userId: 0, 
       zoneId: json['zoneId'] ?? 0,
       cropId: json['cropId'],
       cropName: json['cropName'],

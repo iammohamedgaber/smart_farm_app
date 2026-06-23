@@ -7,7 +7,7 @@ import 'package:smart_farm_app/data/models/zone_model.dart';
 class ZoneApi {
   final ApiService api = ApiService();
 
-  // ✅ كل الـ Zones
+  
   Future<List<ZoneModel>> getZones() async {
     final data = await api.get(endpoint: "/api/Zone");
 
@@ -27,7 +27,7 @@ class ZoneApi {
     return ZoneModel.fromJson(data);
   }
 
-  // ✅ كل الـ Zones اللي بتزرع محصول معين
+  
   Future<List<ZoneModel>> getZonesByCrop(int cropId) async {
     final data = await api.get(endpoint: "/api/zone/by-crop/$cropId");
 

@@ -18,7 +18,7 @@ class _CameraPageState extends State<CameraPage> {
   bool _fullscreen = false;
   bool _showControls = true;
 
-  final String streamUrl = "http://192.168.1.2:80/stream"; // عدل الـ IP لو محتاج
+  final String streamUrl = "http://192.168.1.2:80/stream";
 
   void _startStream() {
     setState(() {

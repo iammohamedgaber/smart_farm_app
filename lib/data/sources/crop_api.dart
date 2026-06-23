@@ -4,7 +4,7 @@ import 'package:smart_farm_app/data/models/zone_model.dart';
 class CropApi {
   final ApiService api = ApiService();
 
-  // ✅ كل المحاصيل
+  
   Future<List<CropModel>> getCrops() async {
     final data = await api.get(endpoint: "/api/crop");
 
@@ -13,7 +13,7 @@ class CropApi {
     return List.from(data).map((e) => CropModel.fromJson(e)).toList();
   }
 
-  // ✅ تفاصيل محصول واحد
+ 
   Future<CropModel?> getCropById(int cropId) async {
     final data = await api.get(endpoint: "/api/crop/$cropId");
 

@@ -15,7 +15,6 @@ class SensorModel {
     required this.recordedAt,
   });
 
-  /// ✅ تحويل من JSON إلى Object
   factory SensorModel.fromJson(Map<String, dynamic> json) {
     return SensorModel(
       sensorId: (json["sensorId"] ?? 0) as int,
@@ -26,18 +25,16 @@ class SensorModel {
     );
   }
 
-  /// ✅ تحويل من Object إلى JSON
   Map<String, dynamic> toJson() {
     return {
       "sensorId": sensorId,
       "airTemperature": airTemperature,
       "airHumidity": airHumidity,
       "soilMoisture": soilMoisture,
-      "recordedAt": recordedAt.toIso8601String(), // تحويل التاريخ إلى String
+      "recordedAt": recordedAt.toIso8601String(),
     };
   }
 
-  /// ✅ Getter لعرض التاريخ بشكل منسق في الـ UI
   String get formattedDate {
     return DateFormat("dd/MM/yyyy HH:mm").format(recordedAt);
   }
@@ -48,14 +45,12 @@ class AllSensorsModel {
 
   AllSensorsModel({required this.sensors});
 
-  /// ✅ تحويل من JSON List إلى Object
   factory AllSensorsModel.fromJson(List<dynamic> jsonList) {
     return AllSensorsModel(
       sensors: jsonList.map((e) => SensorModel.fromJson(e)).toList(),
     );
   }
 
-  /// ✅ تحويل من Object إلى JSON List
   List<Map<String, dynamic>> toJson() {
     return sensors.map((e) => e.toJson()).toList();
   }

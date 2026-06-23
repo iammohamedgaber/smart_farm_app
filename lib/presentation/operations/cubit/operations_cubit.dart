@@ -10,36 +10,41 @@ class OperationsCubit extends Cubit<OperationsState> {
   final OperationsApi api;
 
   OperationsCubit({OperationsApi? api})
-    : api = api ?? OperationsApi(),
-      super(OperationsInitial());
+      : api = api ?? OperationsApi(),
+        super(OperationsInitial());
 
   Future<void> loadOperations() async {
+    if (isClosed) return;
     emit(OperationsLoading());
     try {
       final list = await api.getOperations();
-      emit(OperationsLoaded(operations: list));
+      if (!isClosed) emit(OperationsLoaded(operations: list));
     } catch (e) {
-      emit(OperationsError(message: _formatError(e)));
+      if (!isClosed) emit(OperationsError(message: _formatError(e)));
     }
   }
 
   Future<void> refresh() async => await loadOperations();
 
   Future<void> loadOperationById(int id) async {
+    if (isClosed) return;
     emit(OperationsLoading());
     try {
       final op = await api.getOperationById(id);
-      if (op != null) {
-        emit(OperationsLoaded(operations: [op]));
-      } else {
-        emit(OperationsError(message: "Operation not found"));
+      if (!isClosed) {
+        if (op != null) {
+          emit(OperationsLoaded(operations: [op]));
+        } else {
+          emit(OperationsError(message: "Operation not found"));
+        }
       }
     } catch (e) {
-      emit(OperationsError(message: _formatError(e)));
+      if (!isClosed) emit(OperationsError(message: _formatError(e)));
     }
   }
 
   Future<void> loadByType(int? type) async {
+    if (isClosed) return;
     emit(OperationsLoading());
     try {
       List<OperationModel> list;
@@ -56,13 +61,16 @@ class OperationsCubit extends Cubit<OperationsState> {
           case 2:
             list = await api.getRemoveHarmfulOperations();
             break;
+          case 3:
+            list = await api.getIrrigationOperations();
+            break;
           default:
             list = await api.getOperations();
         }
       }
-      emit(OperationsLoaded(operations: list));
+      if (!isClosed) emit(OperationsLoaded(operations: list));
     } catch (e) {
-      emit(OperationsError(message: _formatError(e)));
+      if (!isClosed) emit(OperationsError(message: _formatError(e)));
     }
   }
 

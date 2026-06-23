@@ -1,108 +1,5 @@
-// import 'package:flutter/material.dart';
-// import 'package:smart_farm_app/data/models/zone_model.dart';
-
-// class ZoneCard extends StatelessWidget {
-//   final ZoneModel zone;
-//   final VoidCallback? onTap;
-
-//   const ZoneCard({super.key, required this.zone, this.onTap});
-
-//   bool get _hasIrrigation => zone.lastIrrigation != null;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       onTap: onTap,
-//       borderRadius: BorderRadius.circular(16),
-//       child: Container(
-//         padding: const EdgeInsets.all(16),
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(16),
-//           boxShadow: const [
-//             BoxShadow(
-//               color: Colors.black12,
-//               blurRadius: 8,
-//               offset: Offset(0, 4),
-//             ),
-//           ],
-//         ),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             // Zone ID (ممكن تخليه يظهر أو تخفيه حسب رغبتك)
-//             Text(
-//               "Zone ${zone.zoneId}",
-//               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 12),
-
-//             // Crop Name فقط
-//             Row(
-//               children: [
-//                 const Icon(Icons.eco, size: 18, color: Colors.green),
-//                 const SizedBox(width: 6),
-//                 Expanded(
-//                   child: Text(
-//                     (zone.cropName == null || zone.cropName!.isEmpty)
-//                         ? "No Crop Selected"
-//                         : zone.cropName!, // ✅ يعرض الاسم فقط
-//                     style: const TextStyle(fontSize: 14),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 10),
-
-//             // Last Irrigation
-//             Row(
-//               children: [
-//                 const Icon(Icons.water_drop, size: 18, color: Colors.blue),
-//                 const SizedBox(width: 6),
-//                 Expanded(
-//                   child: Text(
-//                     zone.lastIrrigation == null
-//                         ? "Never irrigated"
-//                         : "Last irrigation: ${zone.lastIrrigation}",
-//                     style: const TextStyle(fontSize: 13),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             const Spacer(),
-
-//             // Irrigation Status
-//             Align(
-//               alignment: Alignment.centerLeft,
-//               child: Container(
-//                 padding: const EdgeInsets.symmetric(
-//                   horizontal: 12,
-//                   vertical: 6,
-//                 ),
-//                 decoration: BoxDecoration(
-//                   color: _hasIrrigation
-//                       ? Colors.green.withOpacity(.15)
-//                       : Colors.orange.withOpacity(.15),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Text(
-//                   _hasIrrigation ? "Irrigated" : "Needs Irrigation",
-//                   style: TextStyle(
-//                     fontSize: 12,
-//                     color: _hasIrrigation ? Colors.green : Colors.orange,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // ✅ مكتبة لتنسيق التاريخ
+import 'package:intl/intl.dart';
 import 'package:smart_farm_app/data/models/zone_model.dart';
 
 class ZoneCard extends StatelessWidget {
@@ -115,9 +12,10 @@ class ZoneCard extends StatelessWidget {
 
   String _formatIrrigationDate(String? rawDate) {
     if (rawDate == null) return "Never irrigated";
+
     try {
       final date = DateTime.parse(rawDate);
-      return DateFormat("EEEE, dd/MM • HH:mm").format(date);
+      return DateFormat("dd/MM/yyyy • hh:mm a").format(date);
     } catch (_) {
       return rawDate;
     }
@@ -127,86 +25,104 @@ class ZoneCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(18),
       child: Container(
-        padding: const EdgeInsets.all(16),
-        constraints: const BoxConstraints(minHeight: 150),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
+          gradient: const LinearGradient(
+            colors: [Color(0xFF1B5E20), Color(0xFF2E7D32), Color(0xFF388E3C)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
             BoxShadow(
-              color: Colors.black12,
-              blurRadius: 8,
-              offset: Offset(0, 4),
+              color: Colors.black26,
+              blurRadius: 12,
+              offset: const Offset(0, 5),
             ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Zone ID
             Text(
               "Zone ${zone.zoneId}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
+
             const SizedBox(height: 12),
 
-            // Crop Name
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.eco, size: 18, color: Colors.green),
+                const Icon(Icons.eco, color: Colors.lightGreenAccent, size: 20),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     (zone.cropName == null || zone.cropName!.isEmpty)
                         ? "No Crop Selected"
                         : zone.cropName!,
-                    style: const TextStyle(fontSize: 14),
-                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
             ),
+
             const SizedBox(height: 10),
 
-            // Last Irrigation (منسق)
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.water_drop, size: 18, color: Colors.blue),
+                const Icon(
+                  Icons.water_drop,
+                  color: Colors.cyanAccent,
+                  size: 18,
+                ),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     _formatIrrigationDate(zone.lastIrrigation),
-                    style: const TextStyle(fontSize: 13),
-                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 12, color: Colors.white70),
                   ),
                 ),
               ],
             ),
+
             const Spacer(),
 
-            // Irrigation Status
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: _hasIrrigation
+                    ? Colors.greenAccent.withOpacity(0.2)
+                    : Colors.orangeAccent.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                _hasIrrigation ? "Irrigated ✓" : "Needs Care ⚠",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                   color: _hasIrrigation
-                      ? Colors.green.withOpacity(.15)
-                      : Colors.orange.withOpacity(.15),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  _hasIrrigation ? "Irrigated" : "Needs Irrigation",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _hasIrrigation ? Colors.green : Colors.orange,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      ? Colors.greenAccent
+                      : Colors.orangeAccent,
                 ),
               ),
             ),

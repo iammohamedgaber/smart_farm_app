@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_farm_app/data/models/SensorModel.dart';
 import 'package:smart_farm_app/data/sources/sensor_api.dart';
-
 part 'sensor_cubit_state.dart';
 
 class SensorCubit extends Cubit<SensorCubitState> {
@@ -10,9 +9,8 @@ class SensorCubit extends Cubit<SensorCubitState> {
 
   SensorCubit(this.sensorApi) : super(SensorCubitInitial());
 
-  // ✅ تحميل كل الـ Sensors
   Future<void> loadSensors() async {
-    if (isClosed) return; // حماية إضافية
+    if (isClosed) return;
     emit(SensorCubitLoading());
     try {
       final sensors = await sensorApi.getAllSensors();
@@ -22,7 +20,6 @@ class SensorCubit extends Cubit<SensorCubitState> {
     }
   }
 
-  // ✅ تحميل Sensor واحد بالتفاصيل
   Future<void> loadSensorDetails(int sensorId) async {
     if (isClosed) return;
     emit(SensorCubitLoading());
@@ -42,7 +39,6 @@ class SensorCubit extends Cubit<SensorCubitState> {
 
   @override
   Future<void> close() {
-    // لو عندك Streams أو Timers لازم تلغيها هنا
     return super.close();
   }
 }
