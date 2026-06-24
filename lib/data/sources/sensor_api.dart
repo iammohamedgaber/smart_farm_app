@@ -4,7 +4,6 @@ import 'package:smart_farm_app/data/models/SensorModel.dart';
 class SensorApi {
   final ApiService api = ApiService();
 
-  // ✅ كل الـ Sensors
   Future<List<SensorModel>> getAllSensors() async {
     final data = await api.get(endpoint: "/api/Sensor/all");
 
@@ -15,7 +14,6 @@ class SensorApi {
     return data.map((e) => SensorModel.fromJson(e)).toList();
   }
 
-  // ✅ Sensor واحد بالتفاصيل
   Future<SensorModel?> getSensorDetails(int sensorId) async {
     final data = await api.get(endpoint: "/api/Sensor/$sensorId");
 

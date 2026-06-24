@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smart_farm_app/animations/app_colors.dart';
 
-// ============================================================
-// 1. LOADING INDICATOR - للشاشات الكاملة
-// ============================================================
+
 class LoadingIndicator extends StatelessWidget {
   final Color color;
   final double size;
@@ -32,9 +30,7 @@ class LoadingIndicator extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 2. LOADING WITH TEXT - تحميل مع نص
-// ============================================================
+
 class LoadingWithText extends StatelessWidget {
   final String text;
   final Color color;
@@ -69,9 +65,7 @@ class LoadingWithText extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 3. LOADING BAR - شريط تحميل متحرك
-// ============================================================
+
 class LoadingBar extends StatelessWidget {
   final Color backgroundColor;
   final Color progressColor;
@@ -99,9 +93,6 @@ class LoadingBar extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 4. LOADING OVERLAY - فوق الشاشة
-// ============================================================
 class LoadingOverlay extends StatelessWidget {
   final Widget child;
   final bool isLoading;
@@ -131,9 +122,7 @@ class LoadingOverlay extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 5. LOADING SHIMMER - تأثير شيمر (سكلتون)
-// ============================================================
+
 class LoadingShimmer extends StatelessWidget {
   final Widget child;
   final bool isLoading;
@@ -156,9 +145,7 @@ class LoadingShimmer extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 6. LOADING BUTTON - زر مع تحميل
-// ============================================================
+
 class LoadingButton extends StatelessWidget {
   final bool isLoading;
   final VoidCallback? onPressed;
@@ -212,9 +199,7 @@ class LoadingButton extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 7. LOADING LIST - قائمة تحميل (سكلتون)
-// ============================================================
+
 class LoadingList extends StatelessWidget {
   final int itemCount;
 
@@ -243,9 +228,7 @@ class LoadingList extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 8. APP LOADING - الأجمل والأفضل (شعار متحرك)
-// ============================================================
+
 class AppLoading extends StatelessWidget {
   final String? text;
   final Color color;
@@ -262,7 +245,7 @@ class AppLoading extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // شعار متحرك (نبض)
+        
           TweenAnimationBuilder<double>(
             tween: Tween(begin: 0.85, end: 1.0),
             duration: const Duration(milliseconds: 800),
@@ -312,7 +295,7 @@ class AppLoading extends StatelessWidget {
             ),
             const SizedBox(height: 12),
           ],
-          // نقاط متحركة
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(3, (index) {
@@ -340,9 +323,7 @@ class AppLoading extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 9. EMPTY STATE
-// ============================================================
+
 class EmptyState extends StatelessWidget {
   final String message;
   final String? subMessage;
@@ -430,9 +411,7 @@ class EmptyState extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 10. ERROR STATE
-// ============================================================
+
 class ErrorState extends StatelessWidget {
   final String message;
   final String? subMessage;

@@ -19,7 +19,8 @@ class OperationsCubit extends Cubit<OperationsState> {
     try {
       final list = await api.getOperations();
       if (!isClosed) emit(OperationsLoaded(operations: list));
-    } catch (e) {
+    }
+     catch (e) {
       if (!isClosed) emit(OperationsError(message: _formatError(e)));
     }
   }

@@ -1,37 +1,3 @@
-class RobotStatusModel {
-  final bool isRunning;
-  final String? lastOperation;
-  final int? batteryLevel;
-  final DateTime? updatedAt;
-
-  RobotStatusModel({
-    required this.isRunning,
-    this.lastOperation,
-    this.batteryLevel,
-    this.updatedAt,
-  });
-
-  factory RobotStatusModel.fromJson(Map<String, dynamic> json) {
-    return RobotStatusModel(
-      isRunning: json['isRunning'] ?? false,
-      lastOperation: json['lastOperation'],
-      batteryLevel: json['batteryLevel'],
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
-          : null,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'isRunning': isRunning,
-      'lastOperation': lastOperation,
-      'batteryLevel': batteryLevel,
-      'updatedAt': updatedAt?.toIso8601String(),
-    };
-  }
-}
-
 class OperationsSummaryModel {
   final int totalOperations;
   final int irrigationCount;
@@ -67,7 +33,6 @@ class OperationsSummaryModel {
     };
   }
 }
-
 
 class HarvestRequest {
   final int userId;

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-
 import 'package:smart_farm_app/presentation/auth/cubit/login_cubit.dart';
 import 'package:smart_farm_app/presentation/main_layout.dart';
 import 'package:smart_farm_app/widgets/CustomSnackBar.dart';
 import 'package:smart_farm_app/widgets/custom_textfield.dart';
-
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {

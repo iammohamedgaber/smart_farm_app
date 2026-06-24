@@ -63,14 +63,4 @@ class RobotApi {
   }
 }
 
-class RobotStatusApi {
-  final ApiService api = ApiService();
 
-  Future<RobotStatusModel?> getStatus() async {
-    final data = await api.get(endpoint: "/api/robot/status");
-
-    if (data == null) return null;
-
-    return RobotStatusModel.fromJson(Map<String, dynamic>.from(data));
-  }
-}
