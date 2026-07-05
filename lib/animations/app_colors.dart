@@ -1,32 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Smart Farm — Centralized Color System
-///
-/// All colors are defined here. Never hardcode a color anywhere else.
-/// Import this file wherever colors are needed:
-///   import 'package:smart_farm_app/constants/app_colors.dart';
-
 abstract final class AppColors {
-  // ──────────────────────────────────────────────────────────────────────────
-  // BRAND GREENS  (Primary identity)
-  // ──────────────────────────────────────────────────────────────────────────
-  static const Color primary = Color(0xFF2E7D32); // Deep forest green
-  static const Color primaryLight = Color(
-    0xFF4CAF50,
-  ); // Brighter interactive green
-  static const Color primaryDark = Color(0xFF1B5E20); // Pressed / active state
-  static const Color primarySurface = Color(
-    0xFFE8F5EE,
-  ); // Tinted bg for green areas
+  static const Color primary = Color(0xFF2E7D32);
+  static const Color primaryLight = Color(0xFF4CAF50);
+  static const Color primaryDark = Color(0xFF1B5E20);
+  static const Color primarySurface = Color(0xFFE8F5EE);
 
-  static const Color secondary = Color(
-    0xFF4CAF50,
-  ); // Accent green (status, badges)
-  static const Color secondaryLight = Color(0xFFE8F5E9); // Light accent surface
+  static const Color secondary = Color(0xFF4CAF50);
+  static const Color secondaryLight = Color(0xFFE8F5E9);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // SEMANTIC COLORS
-  // ──────────────────────────────────────────────────────────────────────────
   static const Color success = Color(0xFF4CAF50);
   static const Color successSurface = Color(0xFFE8F5E9);
   static const Color successBorder = Color(0xFFA5D6A7);
@@ -43,7 +25,6 @@ abstract final class AppColors {
   static const Color infoSurface = Color(0xFFDEEEF8);
   static const Color infoBorder = Color(0xFF90CAF9);
 
-  // Shorthand aliases kept for legacy compatibility
   static const Color green500 = primary;
   static const Color green700 = primaryDark;
   static const Color green900 = Color(0xFF1B5E20);
@@ -54,27 +35,16 @@ abstract final class AppColors {
   static const Color teal = Color(0xFF00796B);
   static const Color purple = Color(0xFF6A1B9A);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // NEUTRAL BACKGROUNDS
-  // ──────────────────────────────────────────────────────────────────────────
-  static const Color background = Color(0xFFF4F7F5); // Page background
-  static const Color cardBackground = Color(0xFFFFFFFF); // Card / surface
-  static const Color surface = Color(0xFFF1F8F2); // Light surface
-  static const Color surfaceElevated = Color(
-    0xFFFAFCFB,
-  ); // Slightly elevated surface
+  static const Color background = Color(0xFFF4F7F5);
+  static const Color cardBackground = Color(0xFFFFFFFF);
+  static const Color surface = Color(0xFFF1F8F2);
+  static const Color surfaceElevated = Color(0xFFFAFCFB);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // PAGE SPECIFIC BACKGROUNDS
-  // ──────────────────────────────────────────────────────────────────────────
   static const Color selectCropBackground = Color(0xFFF4F7FA);
   static const Color zonesBackground = Color(0xFFF0F7F0);
   static const Color splashBackground = Color(0xFFF4F7FA);
   static const Color dropdownFill = Color(0xFFF1F4F8);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // SENSOR PAGE COLORS
-  // ──────────────────────────────────────────────────────────────────────────
   static const Color sensorBackground = Color(0xFF0A2E1F);
   static const Color sensorGreen = Color(0xFF1DB860);
   static const Color sensorLightGreen = Color(0xFF6EE7A0);
@@ -83,44 +53,29 @@ abstract final class AppColors {
   static const Color sensorTextLight = Color(0xFFF0F4F0);
   static const Color sensorYellow = Color(0xFFF4B942);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // BORDERS & DIVIDERS
-  // ──────────────────────────────────────────────────────────────────────────
   static const Color border = Color(0xFFCBE8CE);
   static const Color borderSubtle = Color(0xFFEEF4F0);
   static const Color divider = Color(0xFFDCEEDD);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // TEXT
-  // ──────────────────────────────────────────────────────────────────────────
-  static const Color textPrimary = Color(0xFF1A3A2A); // Near-black, readable
-  static const Color textSecondary = Color(0xFF78909C); // Muted body text
-  static const Color textLight = Color(0xFFB0BEC5); // Placeholder / disabled
-  static const Color textDark = Color(0xFF1A3A2A); // Alias for textPrimary
-  static const Color textOnPrimary = Colors.white; // White text on green BGs
+  static const Color textPrimary = Color(0xFF1A3A2A);
+  static const Color textSecondary = Color(0xFF78909C);
+  static const Color textLight = Color(0xFFB0BEC5);
+  static const Color textDark = Color(0xFF1A3A2A);
+  static const Color textOnPrimary = Colors.white;
   static const Color textOnDark = Colors.white;
   static const Color black87 = Colors.black87;
   static const Color black12 = Colors.black12;
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // BOTTOM NAV BAR
-  // ──────────────────────────────────────────────────────────────────────────
-  static const Color navBarDark = Color(0xFF0D1F2D); // Dark forest bg
-  static const Color navBarLight = Color(0xFFF8FAFB); // Light nav bg
-  static const Color navBarSelected = Color(0xFF4CAF50); // Bright active green
-  static const Color navBarUnselected = Color(0xFF78909C); // Muted icon
-  static const Color navBarShadow = Color(0xFF0A2E1F); // Glow shadow color
+  static const Color navBarDark = Color(0xFF0D1F2D);
+  static const Color navBarLight = Color(0xFFF8FAFB);
+  static const Color navBarSelected = Color(0xFF4CAF50);
+  static const Color navBarUnselected = Color(0xFF78909C);
+  static const Color navBarShadow = Color(0xFF0A2E1F);
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // BASE COLORS
-  // ──────────────────────────────────────────────────────────────────────────
   static const Color white = Colors.white;
   static const Color white24 = Colors.white24;
   static const Color transparent = Colors.transparent;
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // GRADIENTS
-  // ──────────────────────────────────────────────────────────────────────────
   static const LinearGradient appBarGradient = LinearGradient(
     colors: [Color(0xFF2E7D32), Color(0xFF4CAF50)],
     begin: Alignment.centerLeft,
@@ -139,9 +94,6 @@ abstract final class AppColors {
     end: Alignment.bottomRight,
   );
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // SHADOWS  (use BoxShadow lists so they're consistent everywhere)
-  // ──────────────────────────────────────────────────────────────────────────
   static List<BoxShadow> cardShadow = [
     BoxShadow(
       color: Color(0xFF2E7D32).withOpacity(0.08),
@@ -190,9 +142,7 @@ abstract final class AppColors {
       offset: const Offset(0, -15),
     ),
   ];
-  // ============================================================
-  // GRADIENTS (فاتحة وبسيطة)
-  // ============================================================
+
   static const LinearGradient lightGreenGradient = LinearGradient(
     colors: [Color(0xFFE8F5E9), Color(0xFFC8E6C9), Color(0xFFA5D6A7)],
     begin: Alignment.topLeft,

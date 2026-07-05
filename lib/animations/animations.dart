@@ -1,9 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-// ============================================================
-// 1. ENTRANCE ANIMATION
-// ============================================================
 class EntranceAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -67,9 +64,6 @@ class _EntranceAnimationState extends State<EntranceAnimation>
   }
 }
 
-// ============================================================
-// 2. SCALE PRESS ANIMATION
-// ============================================================
 class ScalePressAnimation extends StatefulWidget {
   final Widget child;
   final VoidCallback? onPressed;
@@ -137,9 +131,6 @@ class _ScalePressAnimationState extends State<ScalePressAnimation>
   }
 }
 
-// ============================================================
-// 3. LOADING ANIMATION
-// ============================================================
 class LoadingAnimation extends StatelessWidget {
   final Color backgroundColor;
   final Color progressColor;
@@ -167,9 +158,6 @@ class LoadingAnimation extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 4. FARM BACKGROUND
-// ============================================================
 class FarmBackground extends StatelessWidget {
   const FarmBackground({super.key});
 
@@ -229,9 +217,6 @@ class FarmBackgroundPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-// ============================================================
-// 5. PULSE ANIMATION
-// ============================================================
 class PulseAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -287,9 +272,6 @@ class _PulseAnimationState extends State<PulseAnimation>
   }
 }
 
-// ============================================================
-// 6. FLOAT ANIMATION
-// ============================================================
 class FloatAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -351,9 +333,6 @@ class _FloatAnimationState extends State<FloatAnimation>
   }
 }
 
-// ============================================================
-// 7. GRADIENT ANIMATION
-// ============================================================
 class GradientAnimation extends StatefulWidget {
   final Widget child;
   final List<Color> colors;
@@ -431,9 +410,6 @@ class _GradientAnimationState extends State<GradientAnimation>
   }
 }
 
-// ============================================================
-// 8. ROTATE ANIMATION
-// ============================================================
 class RotateAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -476,9 +452,6 @@ class _RotateAnimationState extends State<RotateAnimation>
   }
 }
 
-// ============================================================
-// 9. SLIDE IN ANIMATION
-// ============================================================
 class SlideInAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -534,9 +507,6 @@ class _SlideInAnimationState extends State<SlideInAnimation>
   }
 }
 
-// ============================================================
-// 10. FADE IN ANIMATION
-// ============================================================
 class FadeInAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
@@ -587,9 +557,6 @@ class _FadeInAnimationState extends State<FadeInAnimation>
   }
 }
 
-// ============================================================
-// 11. ANIMATION HELPER
-// ============================================================
 class AnimationHelper {
   static Future<void> playSequence(List<AnimationController> controllers) async {
     for (var controller in controllers) {
@@ -609,9 +576,6 @@ class AnimationHelper {
   }
 }
 
-// ============================================================
-// 12. GAUGE ANIMATION
-// ============================================================
 class GaugeAnimation extends StatelessWidget {
   final Widget child;
   final Duration duration;
@@ -638,9 +602,6 @@ class GaugeAnimation extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 13. NAV BAR ANIMATION
-// ============================================================
 class NavBarAnimation extends StatefulWidget {
   final Widget child;
   final bool isSelected;
@@ -739,11 +700,6 @@ class _NavBarAnimationState extends State<NavBarAnimation>
   }
 }
 
-// ============================================================
-// 14. STAGGERED LIST ANIMATION
-// Wraps a list and staggers each child's EntranceAnimation.
-// Usage: StaggeredListAnimation(children: [...])
-// ============================================================
 class StaggeredListAnimation extends StatelessWidget {
   final List<Widget> children;
   final Duration itemDelay;
@@ -772,11 +728,6 @@ class StaggeredListAnimation extends StatelessWidget {
   }
 }
 
-// ============================================================
-// 15. FADE PAGE ROUTE
-// Replaces MaterialPageRoute with a smooth cross-fade transition.
-// Usage: Navigator.push(context, FadePageRoute(child: MyPage()))
-// ============================================================
 class FadePageRoute<T> extends PageRoute<T> {
   final Widget child;
 
@@ -807,11 +758,6 @@ class FadePageRoute<T> extends PageRoute<T> {
   }
 }
 
-// ============================================================
-// 16. SLIDE UP PAGE ROUTE
-// Slides the new page in from the bottom with a simultaneous fade.
-// Usage: Navigator.push(context, SlideUpPageRoute(child: MyPage()))
-// ============================================================
 class SlideUpPageRoute<T> extends PageRoute<T> {
   final Widget child;
 
